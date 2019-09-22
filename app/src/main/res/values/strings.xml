@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Ramal Sisa Umur</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Nandur93 Studio</string>
+    <string name="nav_header_subtitle">nandang.dhe@gmail.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Preference Titles -->
+    <string name="about_header">About</string>
+    <string name="update_header">Update</string>
+    <string name="help_header">Help</string>
+
+    <!-- About Preferences -->
+    <string name="about_summary">This age and death prediction is a Prank (just for fun only). Developed by Nandur93 Studio - Karawang, Indonesia</string>
+
+    <!-- Update Preferences -->
+    <string name="update_title">Check for update</string>
+    <string name="update_summary">Tap here to check for update</string>
+
+    <!-- Feedback Preferences -->
+    <string name="feedback_title">Feedback</string>
+    <string name="feedback_summary">Report technical issues or suggest new features</string>
+    <string name="choose_email_client">Choose Email Client</string>
+    <string name="feedback_body">Feedback for</string>
+
+</resources>
