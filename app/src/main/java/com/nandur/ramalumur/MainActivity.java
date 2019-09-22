@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity
     private TextInputEditText nama;
     private TextInputEditText usia;
     public static String versName;
-    int versCode;
+    public static int versCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +58,9 @@ public class MainActivity extends AppCompatActivity
         usia = findViewById(R.id.TextInputUsia);
         buttResult.setOnClickListener(View -> {
             if (Objects.requireNonNull(nama.getText()).toString().equals("")){
-                Toast.makeText(MainActivity.this, "Nama tidak boleh kososng", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Nama tidak boleh kosong", Toast.LENGTH_SHORT).show();
             } else if(Objects.requireNonNull(usia.getText()).toString().equals("")){
-                Toast.makeText(MainActivity.this, "Umur tidak boleh kososng", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Umur tidak boleh kosong", Toast.LENGTH_SHORT).show();
             } else {
                 predict();
             }
@@ -83,20 +83,18 @@ public class MainActivity extends AppCompatActivity
         int min = Integer.parseInt(Objects.requireNonNull(usia.getText()).toString());
         int max;
         if (min>=70) {
-            String[] tua = {"Loe dah tua bangka!!! Siapin kuburan dan perbanyak ibadah",
-                    "Tua-tua jangan demen ama ABG inget umur", "Banyakin sedekah daripada foya-foya bentar lagi digotong"};
+            String[] tua = getResources().getStringArray(R.array.tua);
             String rndTua = tua[new Random().nextInt(tua.length)];
             tvResult.setText(rndTua);
         } else if (min<=15) {
-            String[] bocah = {"Masih kecil udah main HP!!! Dasar bocah generasi micin",
-                    "Rusak tuh mata loe bocah!!! maen HP mulu", "Quota masih minta orang tua tapi udah banyak gaya!!! Dasar bocah tik tok"};
+            String[] bocah = getResources().getStringArray(R.array.bocah);
             String rndBch = bocah[new Random().nextInt(bocah.length)];
             tvResult.setText(rndBch);
         } else {
             max = 70;
             int random = new Random().nextInt((max - min) + 1) + min;
-            String[] array = {"husnul khotimah", "tragis", "misterius"};
-            String randomStr = array[new Random().nextInt(array.length)];
+            String[] death = getResources().getStringArray(R.array.death);
+            String randomStr = death[new Random().nextInt(death.length)];
             tvResult.setText(MessageFormat.format("Hai {0}, sisa umur loe adalah {1} tahun. Loe bakalan mati secara {2}.", Objects.requireNonNull(nama.getText()).toString(), random-min, randomStr));
         }
     }

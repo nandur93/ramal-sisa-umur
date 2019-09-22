@@ -33,6 +33,12 @@
         app:iconSpaceReserved="false">
 
         <Preference
+            app:key="current_version"
+            app:title="@string/version_title"
+            app:summary="@string/version_summary"
+            app:iconSpaceReserved="false"/>
+
+        <Preference
             app:key="check_update"
             app:title="@string/update_title"
             app:summary="@string/update_summary"

@@ -33,4 +33,8 @@
     <string name="choose_email_client">Choose Email Client</string>
     <string name="feedback_body">Feedback for</string>
 
+    <!-- Version Preferences -->
+    <string name="version_title">Version</string>
+    <string name="version_summary">1.0.0</string>
+
 </resources>
