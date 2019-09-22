@@ -1,0 +1,18 @@
+<AppUpdater>
+    <update>
+        <latestVersion>1.0.0</latestVersion>
+        <latestVersionCode>1</latestVersionCode>
+        <url>https://bit.ly/rsuv1b1</url>
+        <releaseNotes>
+            Version 1.0.0 Build 1
+            Unstable Release
+            + Navigation drawer
+            # Main function
+            + Input nama
+            + Input umur
+            # Setting preferences
+            + App Updater
+            + Send feedback
+        </releaseNotes>
+    </update>
+</AppUpdater>
