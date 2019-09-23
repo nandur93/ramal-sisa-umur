@@ -3,6 +3,7 @@ package com.nandur.ramalumur;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -101,7 +102,6 @@ public class MainActivity extends AppCompatActivity
         // set new title to the MenuItem
         nav_appversion.setTitle(versName);
     }
-
     private void predict() {
         //setupMinMax
         int min = Integer.parseInt(Objects.requireNonNull(usia.getText()).toString());
@@ -119,7 +119,9 @@ public class MainActivity extends AppCompatActivity
             int random = new Random().nextInt((max - min) + 1) + min;
             String[] death = getResources().getStringArray(R.array.death);
             String randomStr = death[new Random().nextInt(death.length)];
-            tvResult.setText(MessageFormat.format(getResources().getString(R.string.predict_pattern), Objects.requireNonNull(nama.getText()).toString(), random-min, randomStr));
+            Resources res = getResources();
+            String yearTotal = res.getQuantityString(R.plurals.numberOfYear, random-min,random-min);
+            tvResult.setText(MessageFormat.format(getResources().getString(R.string.predict_pattern), Objects.requireNonNull(nama.getText()).toString(), yearTotal, randomStr));
         }
     }
 

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Indonesian Language -->
+    <string-array name="tua">
+        <item>Loe dah tua bangka!!! Siapin kuburan dan perbanyak ibadah</item>
+        <item>Tua-tua jangan demen ama ABG inget umur</item>
+        <item>Banyakin sedekah daripada foya-foya bentar lagi digotong</item>
+    </string-array>
+
+    <string-array name="bocah">
+        <item>Masih kecil udah main HP!!! Dasar bocah generasi micin</item>
+        <item>Rusak tuh mata loe bocah!!! maen HP mulu</item>
+        <item>Quota masih minta orang tua tapi udah banyak gaya!!! Dasar bocah tik tok</item>
+    </string-array>
+
+    <string-array name="death">
+        <item>husnul khotimah</item>
+        <item>tragis</item>
+        <item>misterius</item>
+    </string-array>
+</resources>

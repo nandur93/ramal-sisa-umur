@@ -1,20 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Reply Preference -->
+    <!-- English Language -->
     <string-array name="tua">
-        <item>Loe dah tua bangka!!! Siapin kuburan dan perbanyak ibadah</item>
-        <item>Tua-tua jangan demen ama ABG inget umur</item>
-        <item>Banyakin sedekah daripada foya-foya bentar lagi digotong</item>
+        <item>You\'re old fart!!! Prepare the grave and multiply worship</item>
+        <item>Remember your age, you\'re old! don\'t expect young people</item>
+        <item>Give alms more than spree! Soon you will be buried</item>
     </string-array>
 
     <string-array name="bocah">
-        <item>Masih kecil udah main HP!!! Dasar bocah generasi micin</item>
-        <item>Rusak tuh mata loe bocah!!! maen HP mulu</item>
-        <item>Quota masih minta orang tua tapi udah banyak gaya!!! Dasar bocah tik tok</item>
+        <item>You better go to school, you brat!!!</item>
+        <item>You are a generation of micin kid</item>
+        <item>You are a tik tok generation kid</item>
     </string-array>
 
     <string-array name="death">
         <item>husnul khotimah</item>
-        <item>tragis</item>
-        <item>misterius</item>
+        <item>tragically</item>
+        <item>mysteriously</item>
     </string-array>
+    <plurals name="numberOfYear">
+        <item quantity="zero">%d year.</item>
+        <item quantity="one">%d year.</item>
+        <item quantity="other">%d years.</item>
+    </plurals>
 </resources>

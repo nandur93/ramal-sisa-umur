@@ -35,7 +35,7 @@
     <string name="textview_welcome">Welcome Human!!!</string>
     <string name="toast_empty_nameage">Name or age cannot be empty</string>
     <string name="toast_name_limit">Name of at least 2 characters</string>
-    <string name="predict_pattern">Hi {0}, your remaining life is {1} year. You will die {2}.</string>
+    <string name="predict_pattern">Hi {0}, your remaining life is {1} You will die {2}.</string>
     <string name="update_summary">Tap here to check for updates</string>
     <string name="feedback_summary">Report technical issues or suggest new features</string>
     <string name="menu_title_communicate">Communicate</string>
