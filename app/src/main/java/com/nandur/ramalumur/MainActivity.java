@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,11 +14,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -35,6 +40,8 @@ public class MainActivity extends AppCompatActivity
     private TextInputEditText usia;
     public static String versName;
     public static int versCode;
+    private DrawerLayout drawer;
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,22 +52,32 @@ public class MainActivity extends AppCompatActivity
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show());
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
+        handler = new Handler();
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+        MobileAds.initialize(this, initializationStatus -> {
+        });
         Button buttResult = findViewById(R.id.buttonCheck);
         tvResult = findViewById(R.id.textViewResult);
         nama = findViewById(R.id.TextInputName);
         usia = findViewById(R.id.TextInputUsia);
+
+        AdView mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
         buttResult.setOnClickListener(View -> {
-            if (Objects.requireNonNull(nama.getText()).toString().equals("")){
-                Toast.makeText(MainActivity.this, "Nama tidak boleh kosong", Toast.LENGTH_SHORT).show();
+            if (Objects.requireNonNull(nama.getText()).length()<2){
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.toast_name_limit), Toast.LENGTH_SHORT).show();
+            } else if (Objects.requireNonNull(nama.getText()).toString().equals("")){
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.toast_empty_nameage), Toast.LENGTH_SHORT).show();
             } else if(Objects.requireNonNull(usia.getText()).toString().equals("")){
-                Toast.makeText(MainActivity.this, "Umur tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.toast_empty_nameage), Toast.LENGTH_SHORT).show();
             } else {
                 predict();
             }
@@ -76,6 +93,13 @@ public class MainActivity extends AppCompatActivity
             e.printStackTrace();
             Log.d("MyApp", "PackageManager Catch : " + e.toString());
         }
+
+        // get menu from navigationView
+        Menu menu = navigationView.getMenu();
+        // find MenuItem you want to change
+        MenuItem nav_appversion = menu.findItem(R.id.nav_version_name);
+        // set new title to the MenuItem
+        nav_appversion.setTitle(versName);
     }
 
     private void predict() {
@@ -95,7 +119,7 @@ public class MainActivity extends AppCompatActivity
             int random = new Random().nextInt((max - min) + 1) + min;
             String[] death = getResources().getStringArray(R.array.death);
             String randomStr = death[new Random().nextInt(death.length)];
-            tvResult.setText(MessageFormat.format("Hai {0}, sisa umur loe adalah {1} tahun. Loe bakalan mati secara {2}.", Objects.requireNonNull(nama.getText()).toString(), random-min, randomStr));
+            tvResult.setText(MessageFormat.format(getResources().getString(R.string.predict_pattern), Objects.requireNonNull(nama.getText()).toString(), random-min, randomStr));
         }
     }
 
@@ -103,7 +127,9 @@ public class MainActivity extends AppCompatActivity
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
         String shareSubject = getResources().getString(R.string.app_name);
-        String shareBody = tvResult.getText().toString(); //getResources().getString(R.string.share_body);
+        String bitly = getResources().getString(R.string.bitly_share)+getResources().getString(R.string.bitly_dynamic);
+        String hashtag = getResources().getString(R.string.hashtag);
+        String shareBody = tvResult.getText().toString()+"\n\n"+bitly+"\n\n"+hashtag;
         String shareVia = getResources().getString(R.string.menu_send);
         sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, shareSubject+" Versi "+versName+" Build "+versCode);
         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
@@ -134,7 +160,6 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             goToSetting();
             return true;
@@ -155,28 +180,38 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         switch (id) {
-            case R.id.nav_home:
-                // Handle the camera action
-                break;
-            case R.id.nav_gallery:
-
-                break;
-            case R.id.nav_slideshow:
-
-                break;
             case R.id.nav_tools:
-
+                closeDrawer();
+                handler.postDelayed(this::goToSetting,250);
                 break;
             case R.id.nav_share:
-                shareApp();
+                closeDrawer();
+                handler.postDelayed(this::shareApp,250);
                 break;
-            case R.id.nav_send:
-
+            case R.id.nav_version_name:
+                closeDrawer();
+                handler.postDelayed(this::onInfoVersionName, 250);
                 break;
         }
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void onInfoVersionName() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle(R.string.version_title);
+        builder.setMessage("Version Name: "+versName+"\n"+"Version Code: "+versCode);
+        builder.setIcon(R.drawable.ic_info_outline_black_24dp);
+        AlertDialog diag = builder.create();
+        //Display the message!
+        diag.show();
+    }
+
+    private void closeDrawer(){
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        }  //super.onBackPressed();
+
     }
 }

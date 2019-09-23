@@ -1,19 +1,14 @@
 <resources>
-    <string name="app_name">Ramal Sisa Umur</string>
+    <string name="app_name">Remaining Life Forecast</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Nandur93 Studio</string>
-    <string name="nav_header_subtitle">nandang.dhe@gmail.com</string>
-    <string name="nav_header_desc">Navigation header</string>
+    <string name="nav_header_title" translatable="false">Nandur93 Studio</string>
+    <string name="nav_header_subtitle_mail" translatable="false">nandang.dhe@gmail.com</string>
+    <string name="nav_header_desc" translatable="false">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
-    <string name="title_activity_settings">Settings</string>
 
     <!-- Preference Titles -->
     <string name="about_header">About</string>
@@ -21,20 +16,34 @@
     <string name="help_header">Help</string>
 
     <!-- About Preferences -->
-    <string name="about_summary">This age and death prediction is a Prank (just for fun only). Developed by Nandur93 Studio - Karawang, Indonesia</string>
+    <string name="about_summary">Remaining Life Forecast is an application that can accurately predict the rest of human life based on name and age and the cause of death.\nDeveloped by Nandur93 Studio - Karawang, Indonesia.</string>
 
     <!-- Update Preferences -->
     <string name="update_title">Check for update</string>
-    <string name="update_summary">Tap here to check for update</string>
 
     <!-- Feedback Preferences -->
     <string name="feedback_title">Feedback</string>
-    <string name="feedback_summary">Report technical issues or suggest new features</string>
     <string name="choose_email_client">Choose Email Client</string>
     <string name="feedback_body">Feedback for</string>
 
     <!-- Version Preferences -->
     <string name="version_title">Version</string>
-    <string name="version_summary">1.0.0</string>
+    <string name="version_summary" translatable="false">1.0.0</string>
+    <string name="button_check">Predict!</string>
+    <string name="hint_my_age">My age:</string>
+    <string name="hint_my_name">Hi, my name is:</string>
+    <string name="textview_welcome">Welcome Human!!!</string>
+    <string name="toast_empty_nameage">Name or age cannot be empty</string>
+    <string name="toast_name_limit">Name of at least 2 characters</string>
+    <string name="predict_pattern">Hi {0}, your remaining life is {1} year. You will die {2}.</string>
+    <string name="update_summary">Tap here to check for updates</string>
+    <string name="feedback_summary">Report technical issues or suggest new features</string>
+    <string name="menu_title_communicate">Communicate</string>
+    <string name="bitly_share" translatable="false">https://bit.ly/</string>
+    <string name="bitly_dynamic" translatable="false">RLFApp</string>
+    <string name="build_title" translatable="false">Build</string>
+    <string name="update_xml_resource" translatable="false">https://raw.githubusercontent.com/nandur93/ramal-sisa-umur/master/update-changelog.xml</string>
+    <string name="pattern_mailbody">\n\n-----------------------------\nPlease do not delete this section\nDevice OS: Android\nDevice OS version: {0}\nApp Version: {1}\nDevice Brand: {2}\nDevice Model: {3}\nDevice Manufacturer: {4}</string>
+    <string name="hashtag" translatable="false">#RLFApp, #RSUApp, #AgePrediction</string>
 
 </resources>

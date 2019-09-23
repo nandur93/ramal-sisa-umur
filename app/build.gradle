@@ -7,8 +7,8 @@ android {
         applicationId "com.nandur.ramalumur"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 2
-        versionName "1.0.1"
+        versionCode 3
+        versionName "1.1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -30,6 +30,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0-alpha10'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
     implementation 'androidx.preference:preference:1.1.0'
+    implementation 'com.google.android.gms:play-services-ads:18.2.0'
     implementation 'com.github.javiersantos:AppUpdater:2.7'
     testImplementation 'junit:junit:4.13-beta-3'
     androidTestImplementation 'androidx.test:runner:1.3.0-alpha02'
@@ -40,3 +41,34 @@ repositories {
     jcenter()
     maven { url "https://jitpack.io" }
 }
+
+/*
+About
+Remaining Life Forecast is an application that can accurately predict the rest of human life based on name and age and the cause of death.
+Developed by Nandur93 Studio - Karawang, Indonesia.
+
+version 1.1.1 build 3 https://bit.ly/RLFApp
++ Share dynamic bit.ly link
++ Organized navigation drawer
++ Add Indonesian translation
++ Clean code
++ Add admob banner
++ Move all string section to string resources
++ Improve share app
+- Hide FAB
+
+version 1.0.1 build 2 unuploaded
++ Bundle saved instance
++ Preferences fix
++ Move array to array.xml
+
+Inisial commit version 1.0.0 build 1 unoploaded
++ Navigation drawer
+# Main function
++ Input nama
++ Input umur
+# Setting preferences
++ App Updater
++ Send feedback
+
+ */

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ramal Sisa Umur</string>
+    <string name="about_header">Tentang</string>
+    <string name="about_summary">Ramal Sisa Umur adalah sebuah aplikasi yang bisa memprediksi secara akurat sisa umur manusia berdasarkan Nama dan Usia serta penyebab kematiannya.\nDikembangkan oleh Nandur93 Studio - Karawang, Indonesia.</string>
+    <string name="action_settings">Pengaturan</string>
+    <string name="button_check">Ramal!</string>
+    <string name="choose_email_client">Pilih Email</string>
+    <string name="feedback_body">Masukan untuk</string>
+    <string name="feedback_summary">Laporkan masalah teknis atau sarankan fitur baru</string>
+    <string name="feedback_title">Masukan</string>
+    <string name="help_header">Bantuan</string>
+    <string name="hint_my_age">Umur gua:</string>
+    <string name="hint_my_name">Hai, nama gua adalah:</string>
+    <string name="menu_send">Kirim</string>
+    <string name="menu_share">Bagikan</string>
+    <string name="navigation_drawer_close">Tutup navigation drawer</string>
+    <string name="navigation_drawer_open">Buka navigation drawer</string>
+    <string name="predict_pattern">Hai {0}, sisa hidup Loe adalah {1} tahun. Loe bakalan mati secara {2}.</string>
+    <string name="textview_welcome">Selamat Datang Wahai Manusia!</string>
+    <string name="toast_empty_nameage">Nama atau umur gak boleh kosong</string>
+    <string name="toast_name_limit">Nama minimal 2 huruf</string>
+    <string name="update_summary">Ketuk di sini untuk memeriksa pembaruan</string>
+    <string name="update_title">Periksa pembaruan</string>
+    <string name="version_title">Versi</string>
+    <string name="menu_title_communicate">Komunikasi</string>
+    <string name="update_header">Pembaruan</string>
+    <string name="pattern_mailbody">\n\n-----------------------------\nTolong jangan hapus bagian ini\nDevice OS: Android\nDevice OS version: {0}\nApp Version: {1}\nDevice Brand: {2}\nDevice Model: {3}\nDevice Manufacturer: {4}</string>
+</resources>

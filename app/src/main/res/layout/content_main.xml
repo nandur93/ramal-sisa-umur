@@ -16,55 +16,77 @@
         android:paddingStart="15dp"
         android:paddingEnd="15dp">
 
-        <TextView
-            android:id="@+id/textViewWelcome"
-            android:layout_width="match_parent"
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Selamat datang"
-            android:textSize="12pt"/>
+            android:layout_gravity="center_horizontal"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+        </com.google.android.gms.ads.AdView>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:paddingTop="10dip"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Hai, nama gua adalah:">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:fillViewport="true"
+            android:layout_marginTop="15dip">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/TextInputName"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_gravity="center"
-                android:inputType="textPersonName|textCapWords"/>
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/textview_welcome"
+                    android:textSize="12pt"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:paddingTop="10dip"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Gua berumur:">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:paddingTop="10dip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_my_name">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/TextInputUsia"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_gravity="center"
-                android:inputType="number"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/TextInputName"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center"
+                        android:inputType="textPersonName|textCapWords"/>
 
-        <Button
-            android:id="@+id/buttonCheck"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Cek idup loe!!!" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/textViewResult"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="12pt"/>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:paddingTop="10dip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_my_age">
 
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/TextInputUsia"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center"
+                        android:inputType="number"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/buttonCheck"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_check" />
+
+                <TextView
+                    android:id="@+id/textViewResult"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="12pt"/>
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

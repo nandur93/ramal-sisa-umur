@@ -45,7 +45,8 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-    public static class SettingsFragment extends PreferenceFragmentCompat {
+    static class SettingsFragment extends PreferenceFragmentCompat {
+        @SuppressWarnings("ConstantConditions")
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
@@ -57,7 +58,9 @@ public class SettingsActivity extends AppCompatActivity {
 
             //getVersionName
             if (prefVersion != null) {
-                prefVersion.setSummary("Vers "+versName+" Build "+versCode);
+                String versi = getResources().getString(R.string.version_title);
+                String build = getResources().getString(R.string.build_title);
+                prefVersion.setSummary(versi+" "+versName+" "+build+" "+versCode);
             }
 
             if (prefVersion != null) {
@@ -68,12 +71,13 @@ public class SettingsActivity extends AppCompatActivity {
             }
 
             if (prefCheckUpdate != null) {
+                String update_xml = getResources().getString(R.string.update_xml_resource);
                 prefCheckUpdate.setOnPreferenceClickListener(preference -> {
                     new AppUpdater(Objects.requireNonNull(getContext()))
                             //.setUpdateFrom(UpdateFrom.GITHUB)
                             //.setGitHubUserAndRepo("javiersantos", "AppUpdater")
                             .setUpdateFrom(UpdateFrom.XML)
-                            .setUpdateXML("https://raw.githubusercontent.com/nandur93/KNers/master/update-changelog.xml")
+                            .setUpdateXML(update_xml)
                             .setDisplay(Display.DIALOG)
                             .setButtonDoNotShowAgain(null)
                             .showAppUpdated(true)
@@ -115,21 +119,21 @@ public class SettingsActivity extends AppCompatActivity {
      * Appends the necessary device information to email body
      * useful when providing support
      */
-    public static void sendFeedback(Context context) {
+    private static void sendFeedback(Context context) {
         String body = null;
         String feedBody = context.getString(R.string.feedback_body);
         String appName = context.getString(R.string.app_name);
         String emailClient = context.getString(R.string.choose_email_client);
+        String targetMail = context.getResources().getString(R.string.nav_header_subtitle_mail);
+        String patterMailBody = context.getResources().getString(R.string.pattern_mailbody);
         try {
             body = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
-            body = "\n\n-----------------------------\nTolong jangan hapus bagian ini\n Device OS: Android \n Device OS version: " +
-                    Build.VERSION.RELEASE + "\n App Version: " + body + "\n Device Brand: " + Build.BRAND +
-                    "\n Device Model: " + Build.MODEL + "\n Device Manufacturer: " + Build.MANUFACTURER;
+            body = MessageFormat.format(patterMailBody, Build.VERSION.RELEASE, body, Build.BRAND, Build.MODEL, Build.MANUFACTURER);
         } catch (PackageManager.NameNotFoundException ignored) {
         }
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("message/rfc822");
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"nandang.dhe@gmail.com"});
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{targetMail});
         intent.putExtra(Intent.EXTRA_SUBJECT, MessageFormat.format("{0} {1} v{2} b{3}", feedBody, appName, versName, versCode));
         intent.putExtra(Intent.EXTRA_TEXT, body);
         context.startActivity(Intent.createChooser(intent, emailClient));
