@@ -1,12 +1,14 @@
 <AppUpdater>
     <update>
-        <latestVersion>1.2.1</latestVersion>
-        <latestVersionCode>5</latestVersionCode>
-        <url>https://bit.ly/RLFv121b5</url>
+        <latestVersion>1.3.1</latestVersion>
+        <latestVersionCode>6</latestVersionCode>
+        <url>https://bit.ly/RLFv131b6</url>
         <releaseNotes>
+            RLF version 1.3.1 build 6
+            + Bug fix
             RLF version 1.2.1 build 5
             + Initial release
-            + Documented on https://bit.ly/RLFAPP
+            + Offc. on https://bit.ly/RLFAPP
             + Smart and accurate predictions
             + Free predicts everyday
             + Material with bloody red theme
