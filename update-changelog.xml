@@ -1,18 +1,18 @@
 <AppUpdater>
     <update>
-        <latestVersion>1.0.0</latestVersion>
-        <latestVersionCode>1</latestVersionCode>
-        <url>https://bit.ly/rsuv1b1</url>
+        <latestVersion>1.3.1</latestVersion>
+        <latestVersionCode>6</latestVersionCode>
+        <url>https://bit.ly/RLFv131b6</url>
         <releaseNotes>
-            Version 1.0.0 Build 1
-            Unstable Release
-            + Navigation drawer
-            # Main function
-            + Input nama
-            + Input umur
-            # Setting preferences
-            + App Updater
-            + Send feedback
+            RLF version 1.3.1 build 6
+            + Bug fix
+            RLF version 1.2.1 build 5
+            + Initial release
+            + Offc. on https://bit.ly/RLFAPP
+            + Smart and accurate predictions
+            + Free predicts everyday
+            + Material with bloody red theme
+            + Easy to use
         </releaseNotes>
     </update>
 </AppUpdater>
