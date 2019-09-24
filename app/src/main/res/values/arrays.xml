@@ -14,13 +14,38 @@
     </string-array>
 
     <string-array name="death">
-        <item>husnul khotimah</item>
+        <item>peacefully</item>
         <item>tragically</item>
         <item>mysteriously</item>
+        <item>because of lack of money</item>
+        <item>because you are old</item>
+        <item>because of being hit by a train</item>
+        <item>slipping</item>
+        <item>stabbed by criminals</item>
+        <item>after praying</item>
+        <item>drowning</item>
+        <item>slandered by people</item>
+        <item>from HIV</item>
+        <item>of accident</item>
+        <item>of suicide</item>
+        <item>from being bitten by a crocodile</item>
+        <item>of poisoning</item>
+        <item>of a heart attack</item>
+        <item>from a stroke</item>
+        <item>of diabetes</item>
+        <item>of tuberculosis</item>
+        <item>unnaturally</item>
+        <item>after prostration</item>
+        <item>after reading the Qur\'an</item>
+        <item>because you were raided by citizens</item>
+        <item>of witchcraft</item>
+        <item>in the toilet</item>
+        <item>sahid</item>
+        <item>in the forest</item>
     </string-array>
     <plurals name="numberOfYear">
-        <item quantity="zero">%d year.</item>
-        <item quantity="one">%d year.</item>
-        <item quantity="other">%d years.</item>
+        <item quantity="zero">%d year</item>
+        <item quantity="one">%d year</item>
+        <item quantity="other">%d years</item>
     </plurals>
 </resources>

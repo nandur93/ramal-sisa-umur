@@ -1,18 +1,15 @@
 <AppUpdater>
     <update>
-        <latestVersion>1.3.1</latestVersion>
-        <latestVersionCode>6</latestVersionCode>
-        <url>https://bit.ly/RLFv131b6</url>
+        <latestVersion>2.0.0</latestVersion>
+        <latestVersionCode>7</latestVersionCode>
+        <url>http://bit.ly/RLFv200b7</url>
         <releaseNotes>
-            RLF version 1.3.1 build 6
-            + Bug fix
-            RLF version 1.2.1 build 5
-            + Initial release
-            + Offc. on https://bit.ly/RLFAPP
-            + Smart and accurate predictions
-            + Free predicts everyday
-            + Material with bloody red theme
-            + Easy to use
+            version 2.0.0 build 7
+            + Add clock with seconds tick
+            + Add age calculator
+            + Add many more cause of death
+            + Change text to bloody red theme
+            + Bug fixes
         </releaseNotes>
     </update>
 </AppUpdater>

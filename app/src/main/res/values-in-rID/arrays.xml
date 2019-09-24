@@ -12,16 +12,41 @@
         <item>Rusak tuh mata loe bocah!!! maen HP mulu</item>
         <item>Quota masih minta orang tua tapi udah banyak gaya!!! Dasar bocah tik tok</item>
     </string-array>
-
+<!--Hai {0}, sisa hidup Loe adalah {1} Loe bakalan mati {2}.-->
     <string-array name="death">
-        <item>husnul khotimah</item>
-        <item>tragis</item>
-        <item>misterius</item>
+        <item>secara husnul khotimah</item>
+        <item>secara tragis</item>
+        <item>secara misterius</item>
+        <item>karena kekuarangan duit</item>
+        <item>karena sudah tua</item>
+        <item>tertabrak kereta</item>
+        <item>kepeleset</item>
+        <item>dibacok begal</item>
+        <item>setelah shalat</item>
+        <item>tenggelam</item>
+        <item>difitnah orang</item>
+        <item>kena HIV</item>
+        <item>kecelakaan</item>
+        <item>bunuh diri</item>
+        <item>digigit buaya</item>
+        <item>diracun</item>
+        <item>karena serangan jantung</item>
+        <item>kena stroke</item>
+        <item>kena diabetes</item>
+        <item>kena TBC</item>
+        <item>tidak wajar</item>
+        <item>setelah sujud</item>
+        <item>setelah baca Qur\'an</item>
+        <item>digerebeg warga</item>
+        <item>kena santet</item>
+        <item>ditoilet</item>
+        <item>sahid</item>
+        <item>dihutan</item>
     </string-array>
 
     <plurals name="numberOfYear" tools:ignore="UnusedQuantity">
-        <item quantity="zero">%d tahun.</item>
-        <item quantity="one">%d tahun.</item>
-        <item quantity="other">%d tahun.</item>
+        <item quantity="zero">%d tahun</item>
+        <item quantity="one">%d tahun</item>
+        <item quantity="other">%d tahun</item>
     </plurals>
 </resources>

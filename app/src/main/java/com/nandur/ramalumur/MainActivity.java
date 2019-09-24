@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.DialogFragment;
 import androidx.preference.PreferenceManager;
 
 import com.google.android.gms.ads.AdRequest;
@@ -41,6 +43,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.text.MessageFormat;
 import java.util.Objects;
 import java.util.Random;
+import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -49,7 +52,7 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG_ADMOB = "Admob";
     private TextView tvResult;
     private TextInputEditText nama;
-    private TextInputEditText usia;
+    public static TextInputEditText usia;
     public static String versName;
     public static int versCode;
     private DrawerLayout drawer;
@@ -61,7 +64,7 @@ public class MainActivity extends AppCompatActivity
     private RewardedAd rewardedAd;
     private String predictStr;
     private String adViewStr;
-    //private TextView tvWelcome;
+    public static TextInputEditText textBirthDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,11 +91,13 @@ public class MainActivity extends AppCompatActivity
                 getResources().getString(R.string.real_rewarded_video_ad_unit_id));
         buttResult = findViewById(R.id.buttonCheck);
         tvResult = findViewById(R.id.textViewResult);
-        //tvWelcome = findViewById(R.id.textViewWelcome);
+        TextClock textClock = findViewById(R.id.textClock);
+        String timeZone = TimeZone.getDefault().getID();
+        textClock.setTimeZone(timeZone);
         totalClick = sharedPrefs.getInt(TOTAL_CLICK,0);
-        //tvWelcome.setText(totalClick);
-        nama = findViewById(R.id.TextInputName);
-        usia = findViewById(R.id.TextInputUsia);
+        nama = findViewById(R.id.textInputName);
+        usia = findViewById(R.id.textInputUsia);
+        textBirthDay = findViewById(R.id.textInputBirthday);
         predictStr = getResources().getString(R.string.button_check);
         adViewStr = getResources().getString(R.string.button_show_ad);
         AdView mAdView = findViewById(R.id.adView);
@@ -109,7 +114,7 @@ public class MainActivity extends AppCompatActivity
                 // Ad successfully loaded.
                 Log.d(TAG_ADMOB, "Iklan berhasil diload siap ditampilkan");
                 buttResult.setEnabled(true);
-                if (sharedPrefs.getInt(TOTAL_CLICK, 1) >= 4) {
+                if (sharedPrefs.getInt(TOTAL_CLICK, 1) >= 6) {
                     buttResult.setText(adViewStr);
                 } else {
                     buttResult.setText(predictStr);
@@ -127,13 +132,15 @@ public class MainActivity extends AppCompatActivity
         Log.d(TAG_ADMOB,"-- Permintaan iklan dibuat --");
         rewardedAd.loadAd(new AdRequest.Builder().build(), adLoadCallback);
         //initial count the current click from shared prefs
-        if (sharedPrefs.getInt(TOTAL_CLICK,1)<4){
-            //clik kurang dari 4
+        if (sharedPrefs.getInt(TOTAL_CLICK,1)<6){
+            //clik kurang dari 6
             buttResult.setText(predictStr);
         } else {
-            //total click 4 atau lebih
+            //total click 6 atau lebih
             buttResult.setText(adViewStr);
         }
+
+        textBirthDay.setOnClickListener(View -> showDatePicker());
 
         buttResult.setOnClickListener(View -> {
             //close keyboard
@@ -151,7 +158,7 @@ public class MainActivity extends AppCompatActivity
                         public void onRewardedAdOpened() {
                             // Ad opened. Iklan berjalan
                             Log.d(TAG_ADMOB,"Menjalankan iklan... Iklan sedang berjalan");
-                            Toast.makeText(getApplicationContext(),"Watch ad to get 3 free predicts!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(),getResources().getString(R.string.watch_ad_to_get_free), Toast.LENGTH_LONG).show();
                         }
                         @Override
                         public void onRewardedAdClosed() {
@@ -171,8 +178,8 @@ public class MainActivity extends AppCompatActivity
                         public void onUserEarnedReward(@NonNull RewardItem reward) {
                             // User earned reward.
                             Log.d(TAG_ADMOB,"Video ditonton secara penuh, user mendapat reward");
-                            editor.putInt(TOTAL_CLICK, 1).apply();
-                            Toast.makeText(getApplicationContext(),"Congratulations, you got 3 more free predicts!", Toast.LENGTH_LONG).show();
+                            editor.putInt(TOTAL_CLICK, 3).apply();
+                            Toast.makeText(getApplicationContext(),getResources().getString(R.string.congrats_got_free), Toast.LENGTH_LONG).show();
                         }
                         @Override
                         public void onRewardedAdFailedToShow(int errorCode) {
@@ -220,6 +227,13 @@ public class MainActivity extends AppCompatActivity
         // set new title to the MenuItem
         nav_appversion.setTitle(versName);
     }
+
+    @SuppressWarnings("WeakerAccess")
+    public void showDatePicker(){
+        DialogFragment newFragment = new MyDatePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "date picker");
+    }
+
     private RewardedAd createAndLoadRewardedAd() {
         RewardedAd rewardedAd = new RewardedAd(this,
                 getResources().getString(R.string.real_rewarded_video_ad_unit_id));
@@ -229,7 +243,7 @@ public class MainActivity extends AppCompatActivity
                 // Ad successfully loaded.
                 Log.d(TAG_ADMOB,"Iklan kedua berhasil diload siap ditampilkan");
                 buttResult.setEnabled(true);
-                if(sharedPrefs.getInt(TOTAL_CLICK,1)>=4){
+                if(sharedPrefs.getInt(TOTAL_CLICK,1)>=6){
                     buttResult.setText(adViewStr);
                 } else {
                     buttResult.setText(predictStr);
@@ -250,34 +264,43 @@ public class MainActivity extends AppCompatActivity
         //setupMinMax
         int min = Integer.parseInt(Objects.requireNonNull(usia.getText()).toString());
         int max;
-        if (min>=70) {
+        if (min>=80) {
             String[] tua = getResources().getStringArray(R.array.tua);
             String rndTua = tua[new Random().nextInt(tua.length)];
             tvResult.setText(rndTua);
-        } else if (min<=15) {
+        } else if (min<=10) {
             String[] bocah = getResources().getStringArray(R.array.bocah);
             String rndBch = bocah[new Random().nextInt(bocah.length)];
             tvResult.setText(rndBch);
         } else {
-            max = 70;
+            max = 80;
             int random = new Random().nextInt((max - min) + 1) + min;
             String[] death = getResources().getStringArray(R.array.death);
             String randomStr = death[new Random().nextInt(death.length)];
             Resources res = getResources();
+            String yourName = Objects.requireNonNull(nama.getText()).toString();
+            int usiaInt = Integer.parseInt(usia.getText().toString());
+            String yourAge = res.getQuantityString(R.plurals.numberOfYear, usiaInt, usiaInt);
             String yearTotal = res.getQuantityString(R.plurals.numberOfYear, random-min,random-min);
-            tvResult.setText(MessageFormat.format(getResources().getString(R.string.predict_pattern), Objects.requireNonNull(nama.getText()).toString(), yearTotal, randomStr));
+            tvResult.setText(MessageFormat.format(getResources().getString(R.string.predict_pattern), yourName, yourAge, yearTotal, randomStr));
         }
         totalClick = sharedPrefs.getInt(TOTAL_CLICK, 1)+1;
         if (totalClick == 1) {//first time clicked to do this
-            Toast.makeText(getApplicationContext(), String.valueOf(totalClick), Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), String.valueOf(totalClick), Toast.LENGTH_LONG).show();
             editor.putInt(TOTAL_CLICK, totalClick).apply();
         } else if (totalClick == 2) {//first time clicked to do this
-            Toast.makeText(getApplicationContext(), String.valueOf(totalClick), Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), String.valueOf(totalClick), Toast.LENGTH_LONG).show();
             editor.putInt(TOTAL_CLICK, totalClick).apply();
         } else if (totalClick == 3) {//first time clicked to do this
-            Toast.makeText(getApplicationContext(), String.valueOf(totalClick), Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), String.valueOf(totalClick), Toast.LENGTH_LONG).show();
             editor.putInt(TOTAL_CLICK, totalClick).apply();
-        } else if (totalClick == 4) {//ganti tombol dengan rewarded ads
+        } else if (totalClick == 4) {//first time clicked to do this
+            //Toast.makeText(getApplicationContext(), String.valueOf(totalClick), Toast.LENGTH_LONG).show();
+            editor.putInt(TOTAL_CLICK, totalClick).apply();
+        } else if (totalClick == 5) {//first time clicked to do this
+            //Toast.makeText(getApplicationContext(), String.valueOf(totalClick), Toast.LENGTH_LONG).show();
+            editor.putInt(TOTAL_CLICK, totalClick).apply();
+        } else if (totalClick == 6) {//ganti tombol dengan rewarded ads
             buttResult.setText(adViewStr);
             Log.d(TAG_ADMOB, "Total klik sudah mecapai "+sharedPrefs.getInt(TOTAL_CLICK, 1));
             editor.putInt(TOTAL_CLICK, totalClick).apply();
@@ -289,8 +312,11 @@ public class MainActivity extends AppCompatActivity
         sharingIntent.setType("text/plain");
         String shareSubject = getResources().getString(R.string.app_name);
         String bitly = getResources().getString(R.string.bitly_share)+getResources().getString(R.string.bitly_dynamic);
+        String direct = getResources().getString(R.string.bitly_share)+getResources().getString(R.string.bitly_direct);
         String hashtag = getResources().getString(R.string.hashtag);
-        String shareBody = tvResult.getText().toString()+"\n\n"+bitly+"\n\n"+hashtag.trim();
+        String ofcWeb = getResources().getString(R.string.ofc_website);
+        String download = getResources().getString(R.string.direct_download);
+        String shareBody = tvResult.getText().toString()+"\n\n"+ofcWeb+bitly+"\n"+download+direct+"\n"+hashtag.trim();
         String shareVia = getResources().getString(R.string.menu_send);
         sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, shareSubject+" "+getResources().getString(R.string.version_title)+" "+versName+" "+getResources().getString(R.string.build_title)+" "+versCode);
         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
