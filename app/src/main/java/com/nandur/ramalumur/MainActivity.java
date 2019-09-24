@@ -1,6 +1,9 @@
 package com.nandur.ramalumur;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -9,7 +12,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,10 +23,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.preference.PreferenceManager;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.rewarded.RewardItem;
+import com.google.android.gms.ads.rewarded.RewardedAd;
+import com.google.android.gms.ads.rewarded.RewardedAdCallback;
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -36,6 +45,8 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String TOTAL_CLICK = "total_click";
+    private static final String TAG_ADMOB = "Admob";
     private TextView tvResult;
     private TextInputEditText nama;
     private TextInputEditText usia;
@@ -43,6 +54,14 @@ public class MainActivity extends AppCompatActivity
     public static int versCode;
     private DrawerLayout drawer;
     private Handler handler;
+    private SharedPreferences sharedPrefs;
+    private int totalClick;
+    private SharedPreferences.Editor editor;
+    private MaterialButton buttResult;
+    private RewardedAd rewardedAd;
+    private String predictStr;
+    private String adViewStr;
+    //private TextView tvWelcome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,28 +78,127 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         handler = new Handler();
+        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = sharedPrefs.edit();
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
         MobileAds.initialize(this, initializationStatus -> {
         });
-        Button buttResult = findViewById(R.id.buttonCheck);
+        rewardedAd = new RewardedAd(this,
+                getResources().getString(R.string.real_rewarded_video_ad_unit_id));
+        buttResult = findViewById(R.id.buttonCheck);
         tvResult = findViewById(R.id.textViewResult);
+        //tvWelcome = findViewById(R.id.textViewWelcome);
+        totalClick = sharedPrefs.getInt(TOTAL_CLICK,0);
+        //tvWelcome.setText(totalClick);
         nama = findViewById(R.id.TextInputName);
         usia = findViewById(R.id.TextInputUsia);
-
+        predictStr = getResources().getString(R.string.button_check);
+        adViewStr = getResources().getString(R.string.button_show_ad);
         AdView mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
+        AdRequest adRequest = new AdRequest.Builder()
+                //.addTestDevice(getResources().getString(R.string.ad_test_device))
+                .build();
         mAdView.loadAd(adRequest);
 
+        // Ad successfully loaded.
+        // Ad failed to load.
+        RewardedAdLoadCallback adLoadCallback = new RewardedAdLoadCallback() {
+            @Override
+            public void onRewardedAdLoaded() {
+                // Ad successfully loaded.
+                Log.d(TAG_ADMOB, "Iklan berhasil diload siap ditampilkan");
+                buttResult.setEnabled(true);
+                if (sharedPrefs.getInt(TOTAL_CLICK, 1) >= 4) {
+                    buttResult.setText(adViewStr);
+                } else {
+                    buttResult.setText(predictStr);
+                }
+            }
+
+            @Override
+            public void onRewardedAdFailedToLoad(int errorCode) {
+                // Ad failed to load.
+                Log.d(TAG_ADMOB, "Iklan gagal diload, iklan tidak bisa ditampilkan");
+            }
+        };
+
+        //initial load ad
+        Log.d(TAG_ADMOB,"-- Permintaan iklan dibuat --");
+        rewardedAd.loadAd(new AdRequest.Builder().build(), adLoadCallback);
+        //initial count the current click from shared prefs
+        if (sharedPrefs.getInt(TOTAL_CLICK,1)<4){
+            //clik kurang dari 4
+            buttResult.setText(predictStr);
+        } else {
+            //total click 4 atau lebih
+            buttResult.setText(adViewStr);
+        }
+
         buttResult.setOnClickListener(View -> {
-            if (Objects.requireNonNull(nama.getText()).length()<2){
+            //close keyboard
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(nama.getWindowToken(), 0);
+            imm.hideSoftInputFromWindow(usia.getWindowToken(),0);
+            //jika button bertuliskan adview
+            if (buttResult.getText().toString().equals(adViewStr)){
+                Log.d(TAG_ADMOB,adViewStr);
+                if (rewardedAd.isLoaded()) {
+                    Activity activityContext = MainActivity.this;
+                    RewardedAdCallback adCallback = new RewardedAdCallback() {
+
+                        @Override
+                        public void onRewardedAdOpened() {
+                            // Ad opened. Iklan berjalan
+                            Log.d(TAG_ADMOB,"Menjalankan iklan... Iklan sedang berjalan");
+                            Toast.makeText(getApplicationContext(),"Watch ad to get 3 free predicts!", Toast.LENGTH_LONG).show();
+                        }
+                        @Override
+                        public void onRewardedAdClosed() {
+                            // Ad closed.
+                            Log.d(TAG_ADMOB,"Iklan ditutup oleh user...");
+                            Toast.makeText(getApplicationContext(),"Ad Closed", Toast.LENGTH_LONG).show();
+                            if (sharedPrefs.getInt(TOTAL_CLICK,1)<=3){
+                                buttResult.setText(predictStr);
+                                Log.d(TAG_ADMOB,"...setelah iklan ditonton secara penuh --");
+                            } else {
+                                buttResult.setText(adViewStr);
+                                Log.d(TAG_ADMOB,"...ditengah jalan --");
+                            }
+                            rewardedAd = createAndLoadRewardedAd();
+                        }
+                        @Override
+                        public void onUserEarnedReward(@NonNull RewardItem reward) {
+                            // User earned reward.
+                            Log.d(TAG_ADMOB,"Video ditonton secara penuh, user mendapat reward");
+                            editor.putInt(TOTAL_CLICK, 1).apply();
+                            Toast.makeText(getApplicationContext(),"Congratulations, you got 3 more free predicts!", Toast.LENGTH_LONG).show();
+                        }
+                        @Override
+                        public void onRewardedAdFailedToShow(int errorCode) {
+                            // Ad failed to display
+                            Log.d(TAG_ADMOB,"onRewardedAdFailedToShow");
+                            Toast.makeText(getApplicationContext(),"Ad failed to load", Toast.LENGTH_LONG).show();
+                            buttResult.setText(adViewStr);
+                        }
+                    };
+                    Log.d(TAG_ADMOB,"Menjalankan adCallback");
+                    rewardedAd.show(activityContext, adCallback);
+                } else {
+                    buttResult.setEnabled(false);
+                    buttResult.setText(getString(R.string.ad_unavailable));
+                    Log.d(TAG_ADMOB, getString(R.string.ad_unavailable));
+                }
+            } else if (Objects.requireNonNull(nama.getText()).length()<2){
                 Toast.makeText(MainActivity.this, getResources().getString(R.string.toast_name_limit), Toast.LENGTH_SHORT).show();
             } else if (Objects.requireNonNull(nama.getText()).toString().equals("")){
                 Toast.makeText(MainActivity.this, getResources().getString(R.string.toast_empty_nameage), Toast.LENGTH_SHORT).show();
             } else if(Objects.requireNonNull(usia.getText()).toString().equals("")){
                 Toast.makeText(MainActivity.this, getResources().getString(R.string.toast_empty_nameage), Toast.LENGTH_SHORT).show();
             } else {
+                //button bertuliskan predict
                 predict();
+                //then count click
             }
         });
 
@@ -102,6 +220,32 @@ public class MainActivity extends AppCompatActivity
         // set new title to the MenuItem
         nav_appversion.setTitle(versName);
     }
+    private RewardedAd createAndLoadRewardedAd() {
+        RewardedAd rewardedAd = new RewardedAd(this,
+                getResources().getString(R.string.real_rewarded_video_ad_unit_id));
+        RewardedAdLoadCallback adLoadCallback = new RewardedAdLoadCallback() {
+            @Override
+            public void onRewardedAdLoaded() {
+                // Ad successfully loaded.
+                Log.d(TAG_ADMOB,"Iklan kedua berhasil diload siap ditampilkan");
+                buttResult.setEnabled(true);
+                if(sharedPrefs.getInt(TOTAL_CLICK,1)>=4){
+                    buttResult.setText(adViewStr);
+                } else {
+                    buttResult.setText(predictStr);
+                }
+            }
+
+            @Override
+            public void onRewardedAdFailedToLoad(int errorCode) {
+                // Ad failed to load.
+                Log.d(TAG_ADMOB,"Iklan kedua gagal diload, iklan tidak bisa ditampilkan");
+            }
+        };
+        rewardedAd.loadAd(new AdRequest.Builder().build(), adLoadCallback);
+        return rewardedAd;
+    }
+
     private void predict() {
         //setupMinMax
         int min = Integer.parseInt(Objects.requireNonNull(usia.getText()).toString());
@@ -123,6 +267,21 @@ public class MainActivity extends AppCompatActivity
             String yearTotal = res.getQuantityString(R.plurals.numberOfYear, random-min,random-min);
             tvResult.setText(MessageFormat.format(getResources().getString(R.string.predict_pattern), Objects.requireNonNull(nama.getText()).toString(), yearTotal, randomStr));
         }
+        totalClick = sharedPrefs.getInt(TOTAL_CLICK, 1)+1;
+        if (totalClick == 1) {//first time clicked to do this
+            Toast.makeText(getApplicationContext(), String.valueOf(totalClick), Toast.LENGTH_LONG).show();
+            editor.putInt(TOTAL_CLICK, totalClick).apply();
+        } else if (totalClick == 2) {//first time clicked to do this
+            Toast.makeText(getApplicationContext(), String.valueOf(totalClick), Toast.LENGTH_LONG).show();
+            editor.putInt(TOTAL_CLICK, totalClick).apply();
+        } else if (totalClick == 3) {//first time clicked to do this
+            Toast.makeText(getApplicationContext(), String.valueOf(totalClick), Toast.LENGTH_LONG).show();
+            editor.putInt(TOTAL_CLICK, totalClick).apply();
+        } else if (totalClick == 4) {//ganti tombol dengan rewarded ads
+            buttResult.setText(adViewStr);
+            Log.d(TAG_ADMOB, "Total klik sudah mecapai "+sharedPrefs.getInt(TOTAL_CLICK, 1));
+            editor.putInt(TOTAL_CLICK, totalClick).apply();
+        }
     }
 
     private void shareApp() {
@@ -131,9 +290,9 @@ public class MainActivity extends AppCompatActivity
         String shareSubject = getResources().getString(R.string.app_name);
         String bitly = getResources().getString(R.string.bitly_share)+getResources().getString(R.string.bitly_dynamic);
         String hashtag = getResources().getString(R.string.hashtag);
-        String shareBody = tvResult.getText().toString()+"\n\n"+bitly+"\n\n"+hashtag;
+        String shareBody = tvResult.getText().toString()+"\n\n"+bitly+"\n\n"+hashtag.trim();
         String shareVia = getResources().getString(R.string.menu_send);
-        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, shareSubject+" Versi "+versName+" Build "+versCode);
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, shareSubject+" "+getResources().getString(R.string.version_title)+" "+versName+" "+getResources().getString(R.string.build_title)+" "+versCode);
         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
         startActivity(Intent.createChooser(sharingIntent, shareVia));
     }
@@ -171,9 +330,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void goToSetting() {
-            Intent settingsIntent = new
-                    Intent(MainActivity.this,SettingsActivity.class);
-            startActivity(settingsIntent);
+        Intent settingsIntent = new
+                Intent(MainActivity.this,SettingsActivity.class);
+        startActivity(settingsIntent);
     }
 
     @Override

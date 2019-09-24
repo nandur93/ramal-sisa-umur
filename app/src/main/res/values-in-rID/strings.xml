@@ -16,7 +16,7 @@
     <string name="menu_share">Bagikan</string>
     <string name="navigation_drawer_close">Tutup navigation drawer</string>
     <string name="navigation_drawer_open">Buka navigation drawer</string>
-    <string name="predict_pattern">Hai {0}, sisa hidup Loe adalah {1} tahun. Loe bakalan mati secara {2}.</string>
+    <string name="predict_pattern">Hai {0}, sisa hidup Loe adalah {1} Loe bakalan mati secara {2}.</string>
     <string name="textview_welcome">Selamat Datang Wahai Manusia!</string>
     <string name="toast_empty_nameage">Nama atau umur gak boleh kosong</string>
     <string name="toast_name_limit">Nama minimal 2 huruf</string>
@@ -26,4 +26,6 @@
     <string name="menu_title_communicate">Komunikasi</string>
     <string name="update_header">Pembaruan</string>
     <string name="pattern_mailbody">\n\n-----------------------------\nTolong jangan hapus bagian ini\nDevice OS: Android\nDevice OS version: {0}\nApp Version: {1}\nDevice Brand: {2}\nDevice Model: {3}\nDevice Manufacturer: {4}</string>
+    <string name="button_show_ad">Tonton iklan untuk dapatkan gratis Ramal!</string>
+    <string name="ad_unavailable">Iklan tidak tersedia, silahkan muat ulang aplikasi</string>
 </resources>

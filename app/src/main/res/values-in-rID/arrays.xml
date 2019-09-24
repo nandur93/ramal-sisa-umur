@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Indonesian Language -->
     <string-array name="tua">
         <item>Loe dah tua bangka!!! Siapin kuburan dan perbanyak ibadah</item>
@@ -18,4 +18,10 @@
         <item>tragis</item>
         <item>misterius</item>
     </string-array>
+
+    <plurals name="numberOfYear" tools:ignore="UnusedQuantity">
+        <item quantity="zero">%d tahun.</item>
+        <item quantity="one">%d tahun.</item>
+        <item quantity="other">%d tahun.</item>
+    </plurals>
 </resources>

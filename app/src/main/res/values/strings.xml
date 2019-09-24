@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Remaining Life Forecast</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -45,5 +45,29 @@
     <string name="update_xml_resource" translatable="false">https://raw.githubusercontent.com/nandur93/ramal-sisa-umur/master/update-changelog.xml</string>
     <string name="pattern_mailbody">\n\n-----------------------------\nPlease do not delete this section\nDevice OS: Android\nDevice OS version: {0}\nApp Version: {1}\nDevice Brand: {2}\nDevice Model: {3}\nDevice Manufacturer: {4}</string>
     <string name="hashtag" translatable="false">#RLFApp, #RSUApp, #AgePrediction</string>
+
+    <!-- Admob -->
+    <string name="test_admob_app_id" translatable="false" tools:keep="@string/test_admob_app_id">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="real_admob_app_id" translatable="false">ca-app-pub-4368595636314473~3548156751</string>
+
+    <!--test unit-->
+    <string name="test_banner_ad_unit_id" translatable="false" tools:keep="@string/test_banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string> <!--test banner-->
+    <string name="test_interestial_ad_unit_id" translatable="false" tools:keep="@string/test_interestial_ad_unit_id">ca-app-pub-3940256099942544/1033173712</string> <!--test interestial-->
+    <string name="test_interestial_video_ad_unit_id" translatable="false" tools:keep="@string/test_interestial_video_ad_unit_id">ca-app-pub-3940256099942544/8691691433</string> <!--test interestial video-->
+    <string name="test_rewarded_video_ad_unit_id" translatable="false" tools:keep="@string/test_rewarded_video_ad_unit_id">ca-app-pub-3940256099942544/5224354917</string> <!--test rewarded video-->
+    <string name="test_native_advanced_ad_unit_id" translatable="false" tools:keep="@string/test_native_advanced_ad_unit_id">ca-app-pub-3940256099942544/1044960115</string> <!--test native advanced-->
+    <string name="test_native_advanced_video_ad_unit_id" translatable="false" tools:keep="@string/test_native_advanced_video_ad_unit_id">ca-app-pub-3940256099942544/1044960115</string> <!--test native advanced video-->
+
+    <!--real unit-->
+    <string name="real_banner_ad_unit_id" translatable="false">ca-app-pub-4368595636314473/4641746570</string> <!--v1BannerRSU-->
+    <string name="real_interestial_ad_unit_id" translatable="false" tools:keep="@string/real_interestial_ad_unit_id">ca-app-pub-4368595636314473/2850454071</string> <!--v1InterestialRSU-->
+    <!--string name="test_interestial_video_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/8691691433</string--> <!--test interestial video-->
+    <string name="real_rewarded_video_ad_unit_id" translatable="false">ca-app-pub-4368595636314473/6611952727</string> <!--v1RewardedRSU-->
+    <string name="real_native_ad_unit_id" translatable="false" tools:keep="@string/real_native_ad_unit_id">ca-app-pub-4368595636314473/4286523358</string> <!--v1NativeRSU-->
+    <!--string name="test_native_advanced_video_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/1044960115</string--> <!--test native advanced video-->
+
+    <string name="ad_test_device" translatable="false" tools:keep="@string/ad_test_device">14B7B6CB0DE972D44CD0321BEF76CBC6</string> <!--SAMSUNG J7+-->
+    <string name="button_show_ad">Show Ad to get free Predict</string>
+    <string name="ad_unavailable">Ad unavailable, please restart the app</string>
 
 </resources>
