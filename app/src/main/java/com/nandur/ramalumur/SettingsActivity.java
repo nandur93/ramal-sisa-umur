@@ -45,7 +45,8 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-    static class SettingsFragment extends PreferenceFragmentCompat {
+    @SuppressWarnings("WeakerAccess")
+    public static class SettingsFragment extends PreferenceFragmentCompat {
         @SuppressWarnings("ConstantConditions")
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -119,7 +120,8 @@ public class SettingsActivity extends AppCompatActivity {
      * Appends the necessary device information to email body
      * useful when providing support
      */
-    private static void sendFeedback(Context context) {
+    @SuppressWarnings("WeakerAccess")
+    public static void sendFeedback(Context context) {
         String body = null;
         String feedBody = context.getString(R.string.feedback_body);
         String appName = context.getString(R.string.app_name);
