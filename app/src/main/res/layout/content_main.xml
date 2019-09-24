@@ -12,19 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp">
-
-        <com.google.android.gms.ads.AdView
-            xmlns:ads="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/adView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            ads:adSize="BANNER"
-            ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
-        </com.google.android.gms.ads.AdView>
+        android:orientation="vertical">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -36,9 +24,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp">
 
                 <TextView
+                    android:id="@+id/textViewWelcome"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -74,12 +65,6 @@
                         android:inputType="number"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <Button
-                    android:id="@+id/buttonCheck"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/button_check" />
-
                 <TextView
                     android:id="@+id/textViewResult"
                     android:layout_width="match_parent"
@@ -88,5 +73,30 @@
                     android:textSize="12pt"/>
             </LinearLayout>
         </ScrollView>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="5dp"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:textSize="12pt"
+            android:text="@string/button_check"
+            android:padding="15dip"
+            android:elevation="2dp"
+            android:background="@color/colorPrimaryDark" />
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/real_banner_ad_unit_id"
+            android:background="@color/colorPrimaryDark">
+        </com.google.android.gms.ads.AdView>
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
