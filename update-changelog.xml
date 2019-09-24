@@ -1,10 +1,10 @@
 <AppUpdater>
     <update>
-        <latestVersion>2.0.0</latestVersion>
-        <latestVersionCode>7</latestVersionCode>
-        <url>http://bit.ly/RLFv200b7</url>
+        <latestVersion>2.0.1</latestVersion>
+        <latestVersionCode>8</latestVersionCode>
+        <url>https://bit.ly/RLFv210b8</url>
         <releaseNotes>
-            version 2.0.0 build 7
+            version 2.0.1 build 8
             + Add clock with seconds tick
             + Add age calculator
             + Add many more cause of death

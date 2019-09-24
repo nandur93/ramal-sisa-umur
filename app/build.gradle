@@ -7,8 +7,8 @@ android {
         applicationId "com.nandur.ramalumur"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 7
-        versionName "2.0.0"
+        versionCode 8
+        versionName "2.0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -46,6 +46,10 @@ repositories {
 About
 Remaining Life Forecast is an application that can accurately predict the rest of human life based on name and age and the cause of death.
 Developed by Nandur93 Studio - Karawang, Indonesia.
+
+version 2.0.1 build 8 https://bit.ly/RLFv201b8
+#dev
++ Fix admob
 
 version 2.0.0 build 7 https://bit.ly/RLFv200b7
 #dev

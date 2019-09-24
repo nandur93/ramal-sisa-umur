@@ -85,7 +85,6 @@
                     android:paddingTop="10dip"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:focusable="false"
                     android:hint="@string/hint_my_age">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -128,7 +127,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             ads:adSize="BANNER"
-            ads:adUnitId="@string/test_banner_ad_unit_id"
+            ads:adUnitId="@string/real_banner_ad_unit_id"
             android:background="@color/colorPrimaryDark">
         </com.google.android.gms.ads.AdView>
     </LinearLayout>
