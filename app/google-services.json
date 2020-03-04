@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "720546367848",
+    "firebase_url": "https://nandur93-3932e.firebaseio.com",
+    "project_id": "nandur93-3932e",
+    "storage_bucket": "nandur93-3932e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:720546367848:android:dbe51259091d0bef3a2edd",
+        "android_client_info": {
+          "package_name": "com.nandur.ramalumur"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "720546367848-djnaco948qr0rr1kpg25f2t3b0a6unip.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nandur.ramalumur",
+            "certificate_hash": "73a9c94aad1e7ecf53a3fc50b7a61414f1f4f4b2"
+          }
+        },
+        {
+          "client_id": "720546367848-scl5qpc2jdo5j1qhsqvqbhns54ttlld7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNGwJ0vuhDNyGVB3Hs396FJwDFx2oYWBY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "720546367848-scl5qpc2jdo5j1qhsqvqbhns54ttlld7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
