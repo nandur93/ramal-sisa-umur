@@ -45,7 +45,6 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressWarnings("WeakerAccess")
     public static class SettingsFragment extends PreferenceFragmentCompat {
         @SuppressWarnings("ConstantConditions")
         @Override
@@ -75,10 +74,11 @@ public class SettingsActivity extends AppCompatActivity {
                 String update_xml = getResources().getString(R.string.update_xml_resource);
                 prefCheckUpdate.setOnPreferenceClickListener(preference -> {
                     new AppUpdater(Objects.requireNonNull(getContext()))
+                            .showEvery(250)
                             //.setUpdateFrom(UpdateFrom.GITHUB)
                             //.setGitHubUserAndRepo("javiersantos", "AppUpdater")
-                            .setUpdateFrom(UpdateFrom.XML)
-                            .setUpdateXML(update_xml)
+                            .setUpdateFrom(UpdateFrom.GOOGLE_PLAY)
+                            //.setUpdateXML(update_xml)
                             .setDisplay(Display.DIALOG)
                             .setButtonDoNotShowAgain(null)
                             .showAppUpdated(true)
@@ -120,7 +120,6 @@ public class SettingsActivity extends AppCompatActivity {
      * Appends the necessary device information to email body
      * useful when providing support
      */
-    @SuppressWarnings("WeakerAccess")
     public static void sendFeedback(Context context) {
         String body = null;
         String feedBody = context.getString(R.string.feedback_body);

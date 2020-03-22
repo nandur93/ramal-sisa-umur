@@ -87,8 +87,8 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         MobileAds.initialize(this, initializationStatus -> {
         });
-        rewardedAd = new RewardedAd(this,
-                getResources().getString(R.string.real_rewarded_video_ad_unit_id));
+        // ad configuration
+        rewardedAd = new RewardedAd(this, getResources().getString(R.string.real_rewarded_video_ad_unit_id));
         buttResult = findViewById(R.id.buttonCheck);
         tvResult = findViewById(R.id.textViewResult);
         TextClock textClock = findViewById(R.id.textClock);
@@ -145,6 +145,7 @@ public class MainActivity extends AppCompatActivity
         buttResult.setOnClickListener(View -> {
             //close keyboard
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            assert imm != null;
             imm.hideSoftInputFromWindow(nama.getWindowToken(), 0);
             imm.hideSoftInputFromWindow(usia.getWindowToken(),0);
             //jika button bertuliskan adview
@@ -192,8 +193,10 @@ public class MainActivity extends AppCompatActivity
                     Log.d(TAG_ADMOB,"Menjalankan adCallback");
                     rewardedAd.show(activityContext, adCallback);
                 } else {
-                    buttResult.setEnabled(false);
-                    buttResult.setText(getString(R.string.ad_unavailable));
+//                    buttResult.setEnabled(false);
+//                    buttResult.setText(getString(R.string.ad_unavailable));
+                    buttResult.setEnabled(true);
+                    buttResult.setText(predictStr);
                     Log.d(TAG_ADMOB, getString(R.string.ad_unavailable));
                 }
             } else if (Objects.requireNonNull(nama.getText()).length()<2){
@@ -228,15 +231,13 @@ public class MainActivity extends AppCompatActivity
         nav_appversion.setTitle(versName);
     }
 
-    @SuppressWarnings("WeakerAccess")
     public void showDatePicker(){
         DialogFragment newFragment = new MyDatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "date picker");
     }
 
     private RewardedAd createAndLoadRewardedAd() {
-        RewardedAd rewardedAd = new RewardedAd(this,
-                getResources().getString(R.string.real_rewarded_video_ad_unit_id));
+        RewardedAd rewardedAd = new RewardedAd(this, getResources().getString(R.string.real_rewarded_video_ad_unit_id));
         RewardedAdLoadCallback adLoadCallback = new RewardedAdLoadCallback() {
             @Override
             public void onRewardedAdLoaded() {
@@ -285,25 +286,20 @@ public class MainActivity extends AppCompatActivity
             tvResult.setText(MessageFormat.format(getResources().getString(R.string.predict_pattern), yourName, yourAge, yearTotal, randomStr));
         }
         totalClick = sharedPrefs.getInt(TOTAL_CLICK, 1)+1;
-        if (totalClick == 1) {//first time clicked to do this
-            //Toast.makeText(getApplicationContext(), String.valueOf(totalClick), Toast.LENGTH_LONG).show();
-            editor.putInt(TOTAL_CLICK, totalClick).apply();
-        } else if (totalClick == 2) {//first time clicked to do this
-            //Toast.makeText(getApplicationContext(), String.valueOf(totalClick), Toast.LENGTH_LONG).show();
-            editor.putInt(TOTAL_CLICK, totalClick).apply();
-        } else if (totalClick == 3) {//first time clicked to do this
-            //Toast.makeText(getApplicationContext(), String.valueOf(totalClick), Toast.LENGTH_LONG).show();
-            editor.putInt(TOTAL_CLICK, totalClick).apply();
-        } else if (totalClick == 4) {//first time clicked to do this
-            //Toast.makeText(getApplicationContext(), String.valueOf(totalClick), Toast.LENGTH_LONG).show();
-            editor.putInt(TOTAL_CLICK, totalClick).apply();
-        } else if (totalClick == 5) {//first time clicked to do this
-            //Toast.makeText(getApplicationContext(), String.valueOf(totalClick), Toast.LENGTH_LONG).show();
-            editor.putInt(TOTAL_CLICK, totalClick).apply();
-        } else if (totalClick == 6) {//ganti tombol dengan rewarded ads
-            buttResult.setText(adViewStr);
-            Log.d(TAG_ADMOB, "Total klik sudah mecapai "+sharedPrefs.getInt(TOTAL_CLICK, 1));
-            editor.putInt(TOTAL_CLICK, totalClick).apply();
+        switch (totalClick) {
+            case 1: //first time clicked to do this
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+                //Toast.makeText(getApplicationContext(), String.valueOf(totalClick), Toast.LENGTH_LONG).show();
+                editor.putInt(TOTAL_CLICK, totalClick).apply();
+                break;
+            case 6: //ganti tombol dengan rewarded ads
+                buttResult.setText(adViewStr);
+                Log.d(TAG_ADMOB, "Total klik sudah mecapai " + sharedPrefs.getInt(TOTAL_CLICK, 1));
+                editor.putInt(TOTAL_CLICK, totalClick).apply();
+                break;
         }
     }
 

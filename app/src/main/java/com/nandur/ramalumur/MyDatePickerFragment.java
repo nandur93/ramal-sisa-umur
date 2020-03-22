@@ -18,7 +18,7 @@ import java.util.Objects;
 import static com.nandur.ramalumur.MainActivity.textBirthDay;
 import static com.nandur.ramalumur.MainActivity.usia;
 
-@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
+@SuppressWarnings({"CanBeFinal"})
 public class MyDatePickerFragment extends DialogFragment {
 
     private Calendar newDate;

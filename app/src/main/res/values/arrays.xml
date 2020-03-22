@@ -42,6 +42,7 @@
         <item>in the toilet</item>
         <item>sahid</item>
         <item>in the forest</item>
+        <item>infected by Coronavirus</item>
     </string-array>
     <plurals name="numberOfYear">
         <item quantity="zero">%d year</item>

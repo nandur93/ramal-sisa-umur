@@ -111,7 +111,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_margin="5dp"
-            android:textAlignment="center"
             android:textAllCaps="false"
             android:textStyle="bold"
             android:textColor="@android:color/white"

@@ -42,6 +42,7 @@
         <item>ditoilet</item>
         <item>sahid</item>
         <item>dihutan</item>
+        <item>terinfeksi virus korona</item>
     </string-array>
 
     <plurals name="numberOfYear" tools:ignore="UnusedQuantity">
